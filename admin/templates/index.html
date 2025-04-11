@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Vendor Dashboard - Time2Order{% endblock %}
+
+{% block content %}
+<h1 class="heading">Pending Vendors</h1>
+
+<table class="vendor-table">
+    <thead class="vendor-header">
+        <tr>
+            <th class="vendor-th">Username</th>
+            <th class="vendor-th">Email</th>
+            <th class="vendor-th">Mobile</th>
+            <th class="vendor-th">Shop Name</th>
+            <th class="vendor-th">Owner Name</th>
+            <th class="vendor-th">Map Link</th>
+            <th class="vendor-th">Address</th>
+            <th class="vendor-th">Pincode</th>
+            <th class="vendor-th">Category</th>
+            <th class="vendor-th">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody class="vendor-body">
+        {% for vendor in vendors %}
+        <tr class="vendor-row">
+            <td class="vendor-td">{{ vendor.username }}</td>
+            <td class="vendor-td">{{ vendor.email }}</td>
+            <td class="vendor-td">{{ vendor.mobile_number }}</td>
+            <td class="vendor-td">{{ vendor.shop_name }}</td>
+            <td class="vendor-td">{{ vendor.shop_owner_name }}</td>
+            <td class="vendor-td"><a class="map-link" href="{{ vendor.map_link }}" target="_blank">View Map</a></td>
+            <td class="vendor-td">{{ vendor.shop_address }}</td>
+            <td class="vendor-td">{{ vendor.pincode }}</td>
+            <td class="vendor-td">{{ vendor.category }}</td>
+            <td class="vendor-td actions">
+                <form class="action-form" action="{{ url_for('approve', vendor_id=vendor.id) }}" method="POST">
+                    <button class="btn btn-approve" type="submit">Approve</button>
+                </form>
+                <form class="action-form" action="{{ url_for('reject', vendor_id=vendor.id) }}" method="POST">
+                    <button class="btn btn-reject" type="submit">Reject</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+<style>
+    
+</style>
