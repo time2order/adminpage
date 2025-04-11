@@ -1,1 +1,0 @@
-/approve/<int:vendor_id>
