@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Vendor Dashboard - Time2Order{% endblock %}
+
+{% block content %}
+<h1>Pending Vendors</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Shop Name</th>
+            <th>Owner Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for vendor in vendors %}
+        <tr>
+            <td>{{ vendor.shop_name }}</td>
+            <td>{{ vendor.shop_owner_name }}</td>
+            <td>
+                <form action="{{ url_for('approve', vendor_id=vendor.id) }}" method="POST" style="display:inline;">
+                    <button type="submit">Approve</button>
+                </form>
+                <form action="{{ url_for('reject', vendor_id=vendor.id) }}" method="POST" style="display:inline;">
+                    <button type="submit">Reject</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

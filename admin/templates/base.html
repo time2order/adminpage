@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Time2Order Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="left-section">
+        <span class="menu-icon" onclick="toggleSidebar()">&#9776;</span>
+        <img src="{{ url_for('static', filename='logoatlogin.jpg') }}" alt="Time2Order Logo" class="logo">
+    </div>
+
+    <div class="center-section">
+        <h1 class="app-title">Time2Order</h1>
+        <p class="tagline">Smart Local Shopping System</p>
+    </div>
+
+    <div class="profile-info">
+        <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Admin Avatar" class="top-avatar">
+        <span class="admin-name">Admin</span>
+        <button onclick="document.body.classList.toggle('dark-mode')">🌓 Toggle</button>
+    </div>
+</header>
+
+<aside class="sidebar" id="sidebar">
+    <img src="https://www.w3schools.com/howto/img_avatar.png" class="avatar" alt="Admin Avatar">
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('shops') }}">Shops</a>
+    <a href="#">Orders</a>
+    <a href="{{ url_for('index') }}">Vendor Dashboard</a>
+    <a href="#">Delivery Staff</a>
+    <a href="#">Reports</a>
+    <a href="#">Settings</a>
+    <a href="#">Change Password</a>
+    <a href="#">Logout</a>
+</aside>
+
+<main class="main">
+    {% block content %}{% endblock %}
+</main>
+
+<script>
+    function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("active");
+    }
+</script>
+
+</body>
+</html>

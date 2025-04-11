@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ vendor.shop_name if vendor else 'Shop Not Found' }} - Shop Details{% endblock %}
+
+{% block content %}
+<style>
+    .details-table, .product-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .details-table th, .details-table td,
+    .product-table th, .product-table td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .details-table th {
+        background-color: #f9f9f9;
+        width: 20%;
+    }
+
+    .product-table th {
+        background-color: #eef6ff;
+    }
+
+    .product-image {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+    }
+
+    h1, h2, h3 {
+        margin-top: 20px;
+    }
+
+    a {
+        color: #007BFF;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+{% if vendor %}
+    <h1>{{ vendor.shop_name }} Details</h1>
+
+    <table class="details-table">
+        <tr>
+            <th>Owner</th>
+            <td>{{ vendor.shop_owner_name }}</td>
+        </tr>
+        <tr>
+            <th>Mobile</th>
+            <td>{{ vendor.mobile_number }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ vendor.email }}</td>
+        </tr>
+        <tr>
+            <th>Category</th>
+            <td>{{ vendor.category }}</td>
+        </tr>
+        <tr>
+            <th>Map</th>
+            <td><a href="{{ vendor.map_link }}" target="_blank">View on Map</a></td>
+        </tr>
+    </table>
+
+    <h3>Products:</h3>
+    {% if products %}
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Availability</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.product_name }}</td>
+                    <td>${{ product.product_price }}</td>
+                    <td>{{ product.availability }}</td>
+                    <td>
+                        {% if product.product_image %}
+                            <img src="{{ product.product_image }}" alt="{{ product.product_name }}" class="product-image">
+                        {% else %}
+                            No image
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No products available for this shop.</p>
+    {% endif %}
+{% else %}
+    <h1>Shop Not Found</h1>
+    <p>The requested shop could not be found. Please check the URL and try again.</p>
+{% endif %}
+{% endblock %}
